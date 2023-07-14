@@ -1,0 +1,81 @@
+body {
+    background-color: rgb(132, 132, 132);
+    height: 100vh;
+    margin: 0px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 2rem;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    height: inherit;
+}
+
+.calculator {
+    margin: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightseagreen;
+    height: 600px;
+    width: 360px;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0px black;
+}
+
+.display {
+    box-sizing: border-box;
+    display: flex;
+    padding: 10px;
+    font-size: 3rem;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: lightcyan;
+    height: 120px;
+    width: 100%;
+    margin-bottom: 30px;
+    border: 3px solid black;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0px black inset;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    width: inherit;
+}
+
+.button {
+    height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:whitesmoke;
+    border: 3px solid black;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0px black;
+}
+
+.button:hover{
+    box-shadow: none;
+}
+
+.button.operation {
+    background-color:darksalmon;
+}
+
+.button.clear {
+    background-color: brown;
+    color: whitesmoke;
+}
+
+#equal {
+    width: 165px;
+    background-color: whitesmoke;
+}
