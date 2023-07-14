@@ -64,6 +64,7 @@ body {
 
 .button:hover{
     box-shadow: none;
+    transform: translate(2px, 2px);
 }
 
 .button.operation {
@@ -73,6 +74,10 @@ body {
 .button.clear {
     background-color: brown;
     color: whitesmoke;
+}
+
+#floating-point {
+    background-color: whitesmoke;
 }
 
 #equal {
