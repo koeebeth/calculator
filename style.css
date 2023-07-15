@@ -1,9 +1,9 @@
 body {
     background-color: rgb(132, 132, 132);
-    height: 100vh;
     margin: 0px;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 2rem;
+    height: 90vh;
 }
 
 .main {
@@ -87,4 +87,26 @@ body {
 #equal {
     width: 165px;
     background-color: whitesmoke;
+}
+
+footer {
+    color: rgb(82, 82, 82);
+    text-align: center;
+    margin: 20px 0px;
+    height: 25px;
+    font-size: medium;
+}
+
+footer #text, a, img {
+    display: inline;
+    margin: 0px;
+}
+
+img {
+    height: 20px;
+    vertical-align:bottom;
+}
+
+a {
+    color: black;
 }
