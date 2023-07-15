@@ -13,7 +13,9 @@ const operationBtns = document.querySelectorAll('.button.operation');
 const equal = document.querySelector('#equal');
 const display = document.querySelector('.display');
 const numberDisplay =  display.querySelector('.x');
-const resetBtn = document.querySelector('#delete');
+const resetBtn = document.querySelector('#clear');
+const deleteBtn = document.querySelector('#delete');
+const floatBtn = document.querySelector('#floating-point');
 
 //Objects
 let operations = {
@@ -22,9 +24,9 @@ let operations = {
     'multiply': function(x, y) {return x * y},
     'divide' : function(x, y) {
         if(y == 0) alert('Cannot divide by zero')
-        else return parseFloat((x / y).toFixed(2));
+        else return roundToTwo(x / y);
     },
-    'percent': function(x, y) {return parseFloat((x * y / 100).toFixed(2))},
+    'percent': function(x, y) {return roundToTwo(x * y / 100)},
 }
 
 /* let symbols = {
@@ -40,6 +42,7 @@ function setCalc(){
     y = null;
     operation = null;
     result = null;
+    lastpressed = null;
     numberDisplay.textContent = '0';
 }
 
@@ -55,35 +58,54 @@ function getOperation(e){
     return e.currentTarget.id;
 }
 
+function roundToTwo (num){
+    return Math.round(num * 100) / 100;
+}
+
+function deleteLast() {
+    if(numberDisplay.textContent.length > 1){
+        numberDisplay.textContent = numberDisplay.textContent.slice(0, -1)
+        if(!y){x = getDisplayedNumber()}
+        else{y = getDisplayedNumber();
+        console.log(y)}
+    }
+    else {return numberDisplay.textContent = '0'}
+}
+
+function calcDisplay(e) {
+    if (lastpressed == 'operation'){
+        numberDisplay.textContent = '';
+    }
+    if(lastpressed != 'equal' && numberDisplay.textContent.length < 11){
+        if(x && operation){
+            num = getNumber(e)
+            if(lastpressed == 'operation'){numberDisplay.textContent = num}
+            else {numberDisplay.textContent += num}
+            y = getDisplayedNumber();
+            console.log(x, y, result)
+            lastpressed = 'number';
+        };
+        if(!y) {
+            num = getNumber(e);
+            if(numberDisplay.textContent == '0'){numberDisplay.textContent = num}
+            else {numberDisplay.textContent += num}
+            x = getDisplayedNumber();
+            lastpressed = 'number';
+        }
+    }
+}
+
+
 
 //Event Listeners
 numberBtns.forEach((element) => 
-    element.addEventListener('click',function(e) {
-        if(lastpressed !== 'equal'){
-            if (lastpressed == 'operation'){
-                numberDisplay.textContent = '';
-            }
-            if(x && operation){
-                num = getNumber(e)
-                if(numberDisplay.textContent == '0'){numberDisplay.textContent = num}
-                else {numberDisplay.textContent += num}
-                y = getDisplayedNumber();
-                result = operations[operation](x, y);
-                console.log(x, y, result)
-                lastpressed = 'number';
-            };
-            if(!y) {
-                num = getNumber(e);
-                if(numberDisplay.textContent == '0'){numberDisplay.textContent = num}
-                else {numberDisplay.textContent += num}
-                x = getDisplayedNumber();
-                lastpressed = 'number';
-            }
-        }
-}));
+    element.addEventListener('click', calcDisplay));
 
 operationBtns.forEach((element) =>
     element.addEventListener('click', function(e) {
+        if(operation && lastpressed == 'number') {
+            result = roundToTwo(operations[operation](x, y));
+        }
         operation = getOperation(e);
         if(result) {
             x = result;
@@ -96,6 +118,7 @@ operationBtns.forEach((element) =>
 
 equal.addEventListener('click', function(){
     if(operation && lastpressed !== 'equal'){
+        result = roundToTwo(operations[operation](x, y));
         x = result;
         y = null;
         numberDisplay.textContent = result;
@@ -108,3 +131,10 @@ equal.addEventListener('click', function(){
 
 resetBtn.addEventListener('click', () => setCalc());
 
+floatBtn.addEventListener('click', () => {
+    if (!numberDisplay.textContent.includes('.')){
+        numberDisplay.textContent += '.';
+    }
+})
+
+deleteBtn.addEventListener('click' , () => deleteLast());

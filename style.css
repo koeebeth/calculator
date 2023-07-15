@@ -43,6 +43,10 @@ body {
     box-shadow: 3px 3px 0px black inset;
 }
 
+.x {
+    overflow: hidden;
+}
+
 .row {
     display: flex;
     justify-content: space-between;
